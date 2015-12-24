@@ -22,8 +22,9 @@ class SteamAuth {
 		return $mode;
 	}
 	
-	function getSteamTime()
+	function getSteamTime($localtime = false)
 	{
+		if($localtime) return time()+10;
 		$data = array('steamid' => 0);
 		$url = 'http://api.steampowered.com/ITwoFactorService/QueryTime/v0001';
 		$ch = curl_init($url);
@@ -67,7 +68,7 @@ class SteamAuth {
 	{
 		if($shared_secret == "Shared Secret Key") return "You need to change the 'Shared Secret Key' to your Shared Secret!";
 		$DecodedSharedSecret = base64_decode($shared_secret);
-		$timeHash = $this->createTimeHash($this->getSteamTime());
+		$timeHash = $this->createTimeHash($this->getSteamTime(true)); // If you need Steam Time instead the local time, use 'false'. (Using local time the response time is less)
 		$HMAC = $this->createHMac($timeHash, $DecodedSharedSecret);
 		$HMAC = $this->startArrayToZero($HMAC);
 		
