@@ -19,3 +19,6 @@ $SteamAuth = new SteamAuth;
 ```php
 $SteamAuth->GenerateSteamGuardCode("Shared Secret Key");
 ```
+
+# Proof
+https://youtu.be/umoMBn_UTqg
